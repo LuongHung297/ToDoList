@@ -1,0 +1,177 @@
+:root{
+    --ContenT-main-color: #198754;
+    --BackGround-Hover:rgba(143, 179, 143, 0.245);
+    --activeColor:#198754
+}
+
+/* ------------------------------------------------ */
+/* nav */
+.IconComp{
+    margin-left: 10px;
+    display: inline-table;
+}
+.IconComp i {
+    width: 40px;
+    height: 40px; 
+    border-radius: 50%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.IconComp i:hover{
+    background: var(--BackGround-Hover);
+    cursor: pointer;
+}
+.IconComp .signInAv{
+    height: 40px;
+    width: 40px;
+    background-size: cover;
+    background-position: bottom;
+    border-radius: 50%;
+}
+.IconComp .signInAv:hover{
+    cursor: pointer;
+}
+input.me-2.form-control:focus {
+    outline: none;
+    box-shadow: none;
+}
+/* -------------------------------------------- */
+/* Home */
+.Content-Home{
+        width: 100vw;
+        margin-left: auto;
+        position: relative;
+}
+.LeftHomeContent {
+    position: fixed;
+    width: calc(1400px - 1100px);}
+.RightHomeContent{
+    width: 70%
+}
+.LeftBar {
+    width: 30%;
+    height: 100%;
+    position: sticky;
+  }
+.LeftHomeContent .LeftContent_top{
+    border-bottom: 1px solid #80808059;
+}
+.LeftHomeContent li,.LeftHomeContent .ListStyle {
+    text-decoration: none;
+    color: black;
+    display: block;
+    list-style: none;
+    padding: 0.5rem;
+    border-radius: 5px;
+    padding-left: 0.2 rem;
+}
+.LeftHomeContent li:hover,.LeftHomeContent .LeftContent_top .ListStyle:hover{
+    color: var(--ContenT-main-color);
+    background-color: aliceblue;
+    cursor: pointer;
+}
+.LeftHomeContent li.active,.LeftHomeContent .LeftContent_top .ListStyle.active {
+    background-color:var(--activeColor);
+    color: white;
+}
+.LeftContent_bottom i {
+    /* background: gray; */
+    cursor: pointer;
+    padding: 4px 4px;
+    border-radius: 2px;
+}
+
+.NewWork.d-flex.justify-content-between i:hover {
+    background: var(--BackGround-Hover);
+}
+.LeftContent_bottom {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.rightcontent.d-flex i {
+    height: 30px;
+    font-size: 30px;
+    display: table-cell;
+    vertical-align: baseline;
+    align-items: center;
+    text-align: center;
+    line-height: inherit;
+}
+.rightcontent.d-flex h2{
+    margin-left: 20px;
+}
+.TaskComp {
+    width: 100%;
+    flex-wrap: wrap;
+    color: white;
+    margin-bottom: 30px;
+}
+.TaskComp_Child{
+    position: relative;
+    overflow: hidden;
+    width: 23%;
+    height: 8rem;
+    margin: 1%;
+    background-color: violet;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.TaskComp_Child:hover .Bottom i.fa-star-o{
+color: yellow;  
+transition: 0.3s ease-in-out;
+transform: translateX(0px);
+}
+.TaskComp_Child:hover .Bottom i.fa-arrow-right{
+    transition: 0.3s ease-in-out;
+    transform: translateX(100px);
+    }
+.TaskComp_Child .Bottom i.fa-star-o{
+    transform: translateX(100px);
+
+}
+.TaskComp_Child .Bottom i.fa-star-o:hover::before{
+    content: "\f005";
+}
+.TaskComp_Child:hover:after{
+    content: "";
+    position: absolute;
+    background-image: linear-gradient(90deg,rgba(255, 255, 255, 0), rgb(0 0 0 / 32%));
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+}
+.TaskComp_Child h5 {
+    /* color: white; */
+    width: 70%;
+    /* text-wrap: balance; */
+    min-height: 70%;
+    word-wrap: break-word;
+    /* overflow: auto; */
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.TaskComp .Bottom{
+    display: flex;
+    justify-content: space-between;
+}
+.TaskComp .Bottom i{
+    cursor: pointer;
+    position: absolute;
+    z-index: 99;
+    right: 0;
+    right: 10px;
+    bottom: 10px;
+}
+/* -----------------Form----------- */
+.formInput:focus{
+    box-shadow: none !important;
+}
