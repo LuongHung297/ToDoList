@@ -175,3 +175,50 @@ transform: translateX(0px);
 .formInput:focus{
     box-shadow: none !important;
 }
+/*-------------------------SearchBox---------------*/
+input.form-control:focus {
+    box-shadow: none;
+}
+.Select-Value {
+    width: 100%;
+    height: fit-content;
+    max-height: 320px;
+    overflow-y: auto;
+    display: block;
+}
+
+.Select-Value .ChilToSelect {
+    width: 100%;
+    height: 40px;
+    border: none;
+    background: white;
+    text-align: left;
+}
+.Select-Value .ChilToSelect:focus ,.Select-Value .ChilToSelect:active{
+    background: var(--ContenT-main-color);
+}
+.Select-Value .ChilToSelect:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+.Select-Value .ChilToSelect:hover {
+    background: var(--ContenT-main-color);
+}
+/* CreateProJect */
+.DisplayUser.IconComp i{
+position: relative;
+}
+.DisplayUser.IconComp i.user_childElement{
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    padding: 0;
+    height: 0;
+    width: 0;
+    color: var(--ContenT-main-color);
+    z-index: 90;
+}
+.DisplayUser.IconComp i.user_childElement:hover::before{
+    content: "\f005";
+}

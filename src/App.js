@@ -5,41 +5,33 @@ import 'bootstrap/dist/js/bootstrap.js';
 import 'font-awesome/css/font-awesome.min.css';
 import { useEffect, useState } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
+import useDataApi from "./CustomHook/useDataApi";
 function App() {
-  let [UserData, setUserData] = useState({
-    UserId: 2,
-    UserName: "Luong Trung Hung",
-    ProjectJoin: [1, 2, 3, 4, 0],
-    ProjectFav: [3],
-    CreatedProject: [3]
-  })
-
+  const { JobinProject, UserSignInData, projectData, setprojectData, ListUser, setUserSignInData } = useDataApi()
   let HandleChangeFav = (data) => {
-    let ListFav = { ...UserData }
+    let ListFav = { ...UserSignInData }
     if (data) {
-      if (data && ListFav.ProjectFav.includes(data.data.id)) {
-        const index = ListFav.ProjectFav.indexOf(data.data.id);
+      if (data && ListFav.JobFav.includes(data.data.id)) {
+        const index = ListFav.JobFav.indexOf(data.data.id);
         if (index > -1) {
-          ListFav.ProjectFav.splice(index, 1);
+          ListFav.JobFav.splice(index, 1);
         }
-      } else if (data && !ListFav.ProjectFav.includes(data.data.id)) {
-        ListFav.ProjectFav.push(data.data.id)
+      } else if (data && !ListFav.JobFav.includes(data.data.id)) {
+        ListFav.JobFav.push(data.data.id)
       }
-      setUserData(ListFav)
+      setUserSignInData(ListFav)
     }
-
-
   }
   return (
 
     <div className="App">
       <header className="App-header">
-        <NavComp UserData={UserData}></NavComp>
+        <NavComp UserData={UserSignInData}></NavComp>
       </header>
       <Routes>
-        <Route path="/" element={<Home UserData={UserData} HandleChangeFav={HandleChangeFav}></Home>}>
+        <Route path="/" element={<Home JobinProject={JobinProject} setprojectData={setprojectData} UserSignInData={UserSignInData} projectData={projectData} ListUser={ListUser} HandleChangeFav={HandleChangeFav}></Home>}>
         </Route>
-        <Route path="/Home" element={<Home UserData={null} HandleChangeFav={HandleChangeFav}></Home>}>
+        <Route path="/Home" element={<Home HandleChangeFav={HandleChangeFav}></Home>}>
         </Route>
       </Routes>
     </div>

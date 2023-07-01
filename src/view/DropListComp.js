@@ -1,15 +1,14 @@
 import { useState } from "react"
 
 const DropListComp = (props) => {
-    const { fakeData } = props
-
+    const { JobinProject } = props
     const [Toggle, setToggle] = useState(true)
-    if (fakeData && fakeData.length > 0)
+    if (JobinProject && JobinProject.length > 0)
         return (<>
             <div onClick={() => {
                 setToggle(!Toggle)
             }} className="HeaderDropList d-flex justify-content-between" style={{ cursor: "pointer" }}><span>
-                    Task đang thực hiện
+                    Công việc đang thực hiện
                 </span>
                 {Toggle ?
                     <i className="fa fa-angle-down" aria-hidden="true"></i>
@@ -20,12 +19,11 @@ const DropListComp = (props) => {
                 Toggle && (
                     <>
                         <div className="DropDownList">
-                            <ul className="DropDownList_chill">
-                                {fakeData && fakeData.length > 0 &&
-
-                                    fakeData.map((item) => {
+                            <ul key={1} className="DropDownList_chill">
+                                {JobinProject && JobinProject.length > 0 &&
+                                    JobinProject.map((item, index) => {
                                         return (<>
-                                            <li className="WorkingTask">
+                                            <li key={item.id} className="WorkingTask">
                                                 {item.title}
                                             </li>
                                         </>)

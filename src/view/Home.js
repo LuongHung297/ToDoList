@@ -3,51 +3,30 @@ import DropListComp from "./DropListComp"
 import HomeTask from "./HomeTask"
 import { NavLink } from "react-router-dom"
 import ModelForView from "./Model"
-
+import useDataApi from "../CustomHook/useDataApi"
+import useGroupList from "../CustomHook/useGroupList"
+import useSubmiFormCustom from "../CustomHook/SubmitFormCustom"
 const Home = (props) => {
-    const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const { UserData, HandleChangeFav } = props
-    const [starChange, setStarChange] = useState(null)
-    const [fakeData, setfakeData] = useState([
-        {
-            id: 1,
-            title: "Thiet ke ky thuat",
-            CreatId: 1,
-            CreatName: "Luong Hung"
-        },
-        {
-            id: 2,
-            title: "Thiet ke ky thuat true",
-            CreatId: 1,
-            CreatName: "Luong Hung"
-        }, {
-            id: 0,
-            title: "Thiet ke ky thuat",
-            CreatId: 1,
-            CreatName: "Luong Hung"
-        }, {
-            id: 3,
-            title: "Thiet ke ky thuat true 2",
-            CreatId: 2,
-            CreatName: "Luong Hung"
-        }, {
-            id: 4,
-            title: "Thiet ke ky thuat",
-            CreatId: 1,
-            CreatName: "Luong Hung"
-        },
-
-    ])
+    const { JobinProject, UserSignInData, ListUser, setprojectData, projectData, HandleChangeFav } = props
+    const ListJobJoin = JobinProject.filter(x => UserSignInData.JobJoin.includes(x.id))
+    const FavJobList = JobinProject.filter(x => UserSignInData.JobJoin.includes(x.id) && UserSignInData.JobFav.includes(x.id))
     const handelTaskClick = () => {
 
     }
+    let group = useGroupList(ListJobJoin)
+    const [show, setShow] = useState(false);
+    useEffect(() => {
+        console.log(projectData)
+
+
+    }, [projectData])
     return (<>
         <div className="topbar"></div>
 
         <div className="Content-Home m-auto  container d-flex">
-            {UserData ? <>            <div className="LeftHomeContent">
+            {UserSignInData ? <>            <div className="LeftHomeContent">
                 <div className="LeftContent_top">
                     <NavLink to="/" className="ListStyle">
 
@@ -70,8 +49,7 @@ const Home = (props) => {
                     <div className="NewWork ListStyle d-flex justify-content-between"><span>Thêm Mới Project</span><i className="fa fa-plus-circle" onClick={handleShow} aria-hidden="true"></i>
                     </div>
                     <div className="DropDownList ListStyle">
-
-                        <DropListComp fakeData={fakeData.filter(x => UserData.ProjectJoin.includes(x.id))}>
+                        <DropListComp JobinProject={ListJobJoin}>
                         </DropListComp>
                     </div>
                     {/* <div className="ListStyle" style={{ cursor: "pointer" }}>
@@ -84,19 +62,23 @@ const Home = (props) => {
                 <div className="LeftBar"></div>
 
                 <div className="RightHomeContent">
-                    {!UserData && UserData.ProjectJoin && UserData.ProjectJoin.length > 0 ?
+                    {UserSignInData && UserSignInData.ProjectJoin && UserSignInData.ProjectJoin.length > 0 ?
                         <>
-                            <HomeTask handelTaskClick={handelTaskClick} CodeName="_Star" title="Starred Tasks" favList={UserData.ProjectFav} fakeData={fakeData.filter(x => UserData.ProjectFav.includes(x.id))} ChangeStar={HandleChangeFav}></HomeTask>
+                            <HomeTask handelTaskClick={handelTaskClick} CodeName="_Star" title="Starred Jobs" Data={FavJobList} userFav={UserSignInData.JobFav} ChangeStar={HandleChangeFav}></HomeTask>
                             <h2 >WorkSpaces
                             </h2>
                             <hr></hr>
-                            <HomeTask handelTaskClick={handelTaskClick} title="Manage" CodeName="_Manage" favList={UserData.ProjectFav} fakeData={fakeData.filter(x => UserData.CreatedProject.includes(x.id))} ChangeStar={HandleChangeFav}></HomeTask>
-                            <HomeTask handelTaskClick={handelTaskClick} title="Join" CodeName="_Join" favList={UserData.ProjectFav} fakeData={fakeData.filter(x => UserData.ProjectJoin.includes(x.id))} ChangeStar={HandleChangeFav}></HomeTask>
+                            {
+                                group.map((i, index) => {
+                                    return <HomeTask handelTaskClick={handelTaskClick} CodeName="" title={projectData.find(x => x.ProjectId == index).ProjectName} Data={i} userFav={UserSignInData.JobFav} ChangeStar={HandleChangeFav} ></HomeTask>
+                                })
+                            }
+
                         </>
                         :
                         <>
 
-                            <HomeTask handelTaskClick={handelTaskClick} title="Tạo mới project" CodeName="_Create" favList={UserData.ProjectFav} fakeData={fakeData.filter(x => UserData.CreatedProject.includes(x.id))} ChangeStar={HandleChangeFav}></HomeTask>
+                            <HomeTask handelTaskClick={handelTaskClick} title="Tạo mới project" CodeName="_Create" Data={null} userFav={UserSignInData.JobFav} ChangeStar={HandleChangeFav}></HomeTask>
                             <div className="Star rightcontent d-flex">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
 
@@ -116,7 +98,7 @@ const Home = (props) => {
                         </>
                     }
                 </div></> : "dang nhap di"}
-            <ModelForView codeName={"CP"} handleShow={handleShow} handleClose={handleClose} Title={"Thêm mới dự án "} show={show} ></ModelForView>
+            <ModelForView codeName={"CP"} projectData={projectData} setprojectData={setprojectData} handleShow={handleShow} handleClose={handleClose} Title={"Thêm mới dự án "} show={show} ></ModelForView>
         </div>
 
 
