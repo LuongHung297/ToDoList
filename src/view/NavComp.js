@@ -7,7 +7,7 @@ const NavComp = (props) => {
     return (<>
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
-                <Navbar.Brand href="#">ToDo List</Navbar.Brand>
+                <Navbar.Brand href="/">ToDo List</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Link

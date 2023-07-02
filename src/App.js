@@ -6,20 +6,24 @@ import 'font-awesome/css/font-awesome.min.css';
 import { useEffect, useState } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import useDataApi from "./CustomHook/useDataApi";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
-  const { JobinProject, UserSignInData, projectData, setprojectData, ListUser, setUserSignInData } = useDataApi()
+  const { JobinProject, setprojectData, setListUser, projectData, ListUser, LoginId } = useDataApi()
+  // UserSignInData, setUserSignInData,
+  const UserSignInData = ListUser.find(x => x.UserId == LoginId)
   let HandleChangeFav = (data) => {
-    let ListFav = { ...UserSignInData }
+    let index = ListUser.findIndex(x => x.UserId == LoginId)
     if (data) {
-      if (data && ListFav.JobFav.includes(data.data.id)) {
-        const index = ListFav.JobFav.indexOf(data.data.id);
-        if (index > -1) {
-          ListFav.JobFav.splice(index, 1);
-        }
-      } else if (data && !ListFav.JobFav.includes(data.data.id)) {
-        ListFav.JobFav.push(data.data.id)
+      if (!ListUser[index].JobFav.includes(data.data.id))
+        ListUser[index].JobFav.push(data.data.id)
+      else {
+        let indexDl = ListUser[index].JobFav.indexOf(data.data.id)
+        if (indexDl > -1)
+          ListUser[index].JobFav.splice(indexDl, 1)
       }
-      setUserSignInData(ListFav)
+      setListUser([...ListUser])
     }
   }
   return (
@@ -29,12 +33,26 @@ function App() {
         <NavComp UserData={UserSignInData}></NavComp>
       </header>
       <Routes>
-        <Route path="/" element={<Home JobinProject={JobinProject} setprojectData={setprojectData} UserSignInData={UserSignInData} projectData={projectData} ListUser={ListUser} HandleChangeFav={HandleChangeFav}></Home>}>
+        <Route path="/" element={<Home></Home>}>
         </Route>
-        <Route path="/Home" element={<Home HandleChangeFav={HandleChangeFav}></Home>}>
+        <Route path={`/ProjectPage/` + LoginId} element={<Home JobinProject={JobinProject} LoginId={LoginId} setprojectData={setprojectData} UserSignInData={UserSignInData} projectData={projectData} setListUser={setListUser} ListUser={ListUser} HandleChangeFav={HandleChangeFav}></Home>}>
         </Route>
+
       </Routes>
-    </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />    </div>
   );
 }
 

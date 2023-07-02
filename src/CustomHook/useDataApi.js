@@ -36,35 +36,35 @@ const useDataApi = () => {
             ProjectId: 4
         },
     ])
-    const [UserSignInData, setUserSignInData] = useState({
-        UserId: 2,
-        UserName: "Luong Trung Hung",
-        ProjectJoin: [1, 2, 3, 4, 0],
-        JobJoin: [1, 2, 3, 4],
-        JobFav: [1],
-        CreatedProject: [3]
-    })
+    // const [UserSignInData, setUserSignInData] = useState({
+    //     UserId: 2,
+    //     UserName: "Luong Trung Hung",
+    //     ProjectJoin: [1, 2, 3, 4, 0],
+    //     JobJoin: [1, 2, 3, 4],
+    //     JobFav: [1],
+    //     CreatedProject: [3]
+    // })
     const [ListUser, setListUser] = useState([{
         UserId: 1,
         UserName: "Luong Trung Hung",
-        ProjectJoin: [1, 2, 3, 4, 0],
-        JobJoin: [],
+        ProjectJoin: [1, 4],
+        JobJoin: [1, 2, 3, 4],
         JobFav: [3],
-        CreatedProject: [3]
+        CreatedProject: [3], ManageProjectId: []
     }, {
         UserId: 3,
         UserName: "Geo",
         ProjectJoin: [],
         JobJoin: [],
         JobFav: [3],
-        CreatedProject: [3]
+        CreatedProject: [3], ManageProjectId: []
     }, {
         UserId: 4,
         UserName: "Tester",
         ProjectJoin: [],
         JobJoin: [],
         JobFav: [3],
-        CreatedProject: [3]
+        CreatedProject: [3], ManageProjectId: []
     }])
     const [projectData, setprojectData] = useState([{
         ProjectName: "TestProject1",
@@ -72,22 +72,23 @@ const useDataApi = () => {
         ProjectId: 1,
         CreateId: "1",
         CreateName: "Luong Trung Hung",
-        ProjectMember: [],
+        ProjectMember: [4, 1],
         ManageUserId: [],
-        JobinProject: []
+        JobinProject: [1, 2, 3]
     }, {
         ProjectName: "TestProject14",
         ProjectDes: "",
         ProjectId: 4,
         CreateId: "1",
         CreateName: "Luong Trung Hung",
-        ProjectMember: [],
+        ProjectMember: [1],
         ManageUserId: [],
-        JobinProject: []
+        JobinProject: [4]
     }])
     const [Task, setTask] = useState()
     return {
-        projectData, setprojectData, Task, setTask, ListUser, setListUser, UserSignInData, setUserSignInData, JobinProject, setJobinProject
+        projectData, LoginId: 1, setprojectData, Task, setTask, ListUser, setListUser, JobinProject, setJobinProject
     }
+    // UserSignInData, setUserSignInData,
 }
 export default useDataApi

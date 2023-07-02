@@ -1,18 +1,21 @@
 import { Button, Col } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import useDataApi from '../CustomHook/useDataApi';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import SearchBox from './SearchBox';
 import { render } from '@testing-library/react';
 
 const AddNewProjectContent = (props) => {
     const { OnSubmit } = props
-    const { UserSignInData } = useDataApi()
+    const { LoginId, ListUser } = useDataApi()
+    const valid = useRef(false)
+    const UserSignInData = ListUser.find(x => x.UserId == LoginId)
     return (<>
         <Form>
             <Form.Group className="mb-3 " controlId="ProjectName">
                 <Form.Label>Tên project</Form.Label>
-                <Form.Control name='ProjectName' type="text" className='formInput' placeholder="" />
+                <Form.Control ref={valid} name='ProjectName' type="text" className='formInput' placeholder="" />
+                <i className='error text-danger' style={{ display: "none" }}>Nhập giá trị</i>
             </Form.Group>
             <Form.Group className="mb-3" controlId="Des">
                 <Form.Label>Mô tả</Form.Label>
@@ -21,7 +24,7 @@ const AddNewProjectContent = (props) => {
             <Form.Control name='CreateId' type='hidden' className='formInput' value={UserSignInData.UserId} />
             <Form.Control name='CreateName' type='hidden' className='formInput' value={UserSignInData.UserName} />
             <Button onClick={(e) => {
-                OnSubmit(e)
+                OnSubmit(e, valid)
             }} type='button' className='w-100 bg-success buttonSubmit'>Tiếp tục</Button>
         </Form>
     </>)
@@ -32,10 +35,21 @@ const AddNewManageContent = () => {
 const AddNewTaskContent = () => {
     return (<>task</>)
 }
+const AddNewJobInProject = () => {
+    return (<>job</>)
+
+}
 const AddNewMemberToProject = (project) => {
+    const { LoginId, ListUser } = useDataApi()
     const { Project, OnSubmit } = project
     const [Search, setSearch] = useState()
-    const [userinPj, setuserinPj] = useState([])
+    const [userinPj, setuserinPj] = useState([{
+        UserId: LoginId,
+        UserName: ListUser.find(x => x.UserId == LoginId).UserName,
+        fav: true
+
+
+    }])
     let data = []
     useEffect(() => {
         setSearch("")
@@ -44,12 +58,13 @@ const AddNewMemberToProject = (project) => {
         let indexUser = userinPj.findIndex(x => x.UserId == id)
         userinPj[indexUser].fav = bool
         setuserinPj([...userinPj])
+        console.log(userinPj)
     }
     return (<>
         <SearchBox userinPj={userinPj} setuserinPj={setuserinPj} Search={Search} setSearch={setSearch}></SearchBox>
 
         <div className='ListUser'>
-            <div className='DisplayUser mb-2 IconComp' >
+            <div className='DisplayUser mt-2 mb-2 IconComp' >
                 {userinPj && userinPj.length > 0 &&
                     userinPj.map((item, index) => {
                         return (<i title={item.UserName} className="fa fa-user-o" aria-hidden="true">
@@ -66,17 +81,17 @@ const AddNewMemberToProject = (project) => {
             <Form>
                 <Form.Control name='ProjectName' type="hidden" className='formInput' value={Project.ProjectName} />
                 <Form.Control name='ProjectDes' type="hidden" className='formInput' value={Project.ProjectDes} />
-                <Form.Control name='ProjectId' type="hidden" className='formInput' value={Math.floor(Math.random() * 101)} />
-                <Form.Control name='CreateId' type='hidden' className='formInput' value={Project.CreateName} />
+                <Form.Control name='ProjectId' type="hidden" className='formInput' value={Math.floor(Math.random() * 100) + 1} />
+                <Form.Control name='CreateId' type='hidden' className='formInput' value={Project.CreateId} />
                 <Form.Control name='CreateName' type='hidden' className='formInput' value={Project.CreateName} />
                 <Form.Control name='ProjectMember' value={userinPj.map(x => x.UserId)} type='hidden' className='formInput' />
                 <Form.Control name='ManageUserId' value={userinPj.filter(x => x.fav == true).map(x => x.UserId)} type='hidden' className='formInput' />
                 <Button onClick={(e) => {
                     OnSubmit(e)
-                }} type='button' className='w-100 bg-success buttonSubmit'>Hoàn thành</Button>
+                }} type='submit' className='w-100 bg-success buttonSubmit'>Hoàn thành</Button>
             </Form>
         </div>
     </>
     );
 }
-export { AddNewManageContent, AddNewProjectContent, AddNewTaskContent, AddNewMemberToProject }
+export { AddNewManageContent, AddNewProjectContent, AddNewTaskContent, AddNewMemberToProject, AddNewJobInProject }

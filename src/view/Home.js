@@ -1,52 +1,60 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import DropListComp from "./DropListComp"
 import HomeTask from "./HomeTask"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import ModelForView from "./Model"
 import useDataApi from "../CustomHook/useDataApi"
 import useGroupList from "../CustomHook/useGroupList"
 import useSubmiFormCustom from "../CustomHook/SubmitFormCustom"
+import { Nav } from "react-bootstrap"
 const Home = (props) => {
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const { JobinProject, UserSignInData, ListUser, setprojectData, projectData, HandleChangeFav } = props
-    const ListJobJoin = JobinProject.filter(x => UserSignInData.JobJoin.includes(x.id))
-    const FavJobList = JobinProject.filter(x => UserSignInData.JobJoin.includes(x.id) && UserSignInData.JobFav.includes(x.id))
+    const [CN, setCN] = useState("");
+    let Nav = useNavigate()
+    const [show, setShow] = useState(false);
+    const { LoginId, JobinProject, UserSignInData, ListUser, setListUser, setprojectData, projectData, HandleChangeFav } = props
+    //Project tham gia cua nguoi dang nhap
+    const ProjectJoin = UserSignInData ? projectData.filter(x => UserSignInData.ProjectJoin.includes(parseInt(x.ProjectId))) : []
+    //Job trong project co nguoi dung join
+    const ListJobJoin = UserSignInData ? JobinProject.filter(x => UserSignInData.JobJoin.includes(x.id)) : []
+    //danh sach job gan tag quan trong
+    const FavJobList = ListJobJoin ? ListJobJoin.filter(x => UserSignInData.JobFav.includes(x.id)) : []
     const handelTaskClick = () => {
-
+        console.log(
+            "help"
+        )
+        Nav("/Project/Insite")
+    }
+    const handleClose = () => setShow(false);
+    const handleShow = (e) => {
+        setCN(e)
+        setShow(true);
     }
     let group = useGroupList(ListJobJoin)
-    const [show, setShow] = useState(false);
     useEffect(() => {
-        console.log(projectData)
-
-
     }, [projectData])
     return (<>
         <div className="topbar"></div>
-
         <div className="Content-Home m-auto  container d-flex">
-            {UserSignInData ? <>            <div className="LeftHomeContent">
+            {UserSignInData ? <> <div className="LeftHomeContent">
                 <div className="LeftContent_top">
                     <NavLink to="/" className="ListStyle">
-
+                        <i className="fa fa-home mr-2" aria-hidden="true"></i>
+                        &nbsp;
+                        <span>
+                            Home
+                        </span>
+                    </NavLink>
+                    <NavLink to={"/ProjectPage/" + LoginId} className="ListStyle">
                         <i className="fa fa-tasks mr-2" aria-hidden="true"></i>
                         &nbsp;
                         <span>
                             Projects
                         </span>
                     </NavLink>
-                    <NavLink to="/Home" className="ListStyle">
-                        <i className="fa fa-home mr-2" aria-hidden="true"></i>
-                        &nbsp;
-                        <span>
-                            Home
-                        </span>
 
-                    </NavLink>
                 </div>
                 <div className="LeftContent_bottom">
-                    <div className="NewWork ListStyle d-flex justify-content-between"><span>Thêm Mới Project</span><i className="fa fa-plus-circle" onClick={handleShow} aria-hidden="true"></i>
+                    <div className="NewWork ListStyle d-flex justify-content-between"><span>Thêm Mới Project</span><i className="fa fa-plus-circle" onClick={() => handleShow('CP')} aria-hidden="true"></i>
                     </div>
                     <div className="DropDownList ListStyle">
                         <DropListComp JobinProject={ListJobJoin}>
@@ -69,8 +77,28 @@ const Home = (props) => {
                             </h2>
                             <hr></hr>
                             {
-                                group.map((i, index) => {
-                                    return <HomeTask handelTaskClick={handelTaskClick} CodeName="" title={projectData.find(x => x.ProjectId == index).ProjectName} Data={i} userFav={UserSignInData.JobFav} ChangeStar={HandleChangeFav} ></HomeTask>
+                                ProjectJoin.map((i, index) => {
+                                    if (i.JobinProject)
+                                        return <HomeTask handelTaskClick={handelTaskClick} CodeName="" title={i.ProjectName} ProjectId={i.ProjectId} Data={ListJobJoin} userFav={UserSignInData.JobFav} ChangeStar={HandleChangeFav} ></HomeTask>
+                                    else {
+                                        return (<>
+
+                                            <div className="Star rightcontent d-flex">
+                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                                &nbsp;
+                                                <h2>{i.ProjectName}
+                                                </h2>
+                                            </div>
+                                            <div className="TaskComp d-flex">
+                                                <div className="TaskComp_Child bg-secondary" onClick={() => handleShow("JIP")} >
+                                                    <h5>Tạo công việc mới </h5>
+                                                    <div className="Bottom">
+                                                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </div></>)
+                                    }
+
                                 })
                             }
 
@@ -88,7 +116,7 @@ const Home = (props) => {
 
                             </div>
                             <div className="TaskComp d-flex">
-                                <div className="TaskComp_Child bg-secondary" onClick={() => handleShow()} >
+                                <div className="TaskComp_Child bg-secondary" onClick={() => handleShow('CP')} >
                                     <h5>Tạo project mới </h5>
                                     <div className="Bottom">
                                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -98,7 +126,7 @@ const Home = (props) => {
                         </>
                     }
                 </div></> : "dang nhap di"}
-            <ModelForView codeName={"CP"} projectData={projectData} setprojectData={setprojectData} handleShow={handleShow} handleClose={handleClose} Title={"Thêm mới dự án "} show={show} ></ModelForView>
+            <ModelForView setListUser={setListUser} ListUser={ListUser} projectData={projectData} setprojectData={setprojectData} handleShow={handleShow} handleClose={handleClose} Title={"Thêm mới "} CN={CN} show={show} ></ModelForView>
         </div>
 
 
