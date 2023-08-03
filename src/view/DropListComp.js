@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 const DropListComp = (props) => {
-    const { JobinProject } = props
+    const { JobinProject, handelTaskClick } = props
     const [Toggle, setToggle] = useState(true)
     if (JobinProject && JobinProject.length > 0)
         return (<>
@@ -23,7 +23,7 @@ const DropListComp = (props) => {
                                 {JobinProject && JobinProject.length > 0 &&
                                     JobinProject.map((item, index) => {
                                         return (<>
-                                            <li key={item.id} className="WorkingTask">
+                                            <li onClick={handelTaskClick} key={item.id} className="WorkingTask">
                                                 {item.title}
                                             </li>
                                         </>)

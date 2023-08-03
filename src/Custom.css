@@ -3,7 +3,11 @@
     --BackGround-Hover:rgba(143, 179, 143, 0.245);
     --activeColor:#198754
 }
+  .modal-dialog{
+    max-width: fit-content;
+    margin:0.5rem auto !important ;
 
+  }
 /* ------------------------------------------------ */
 /* nav */
 .IconComp{
@@ -25,9 +29,11 @@
 .IconComp .signInAv{
     height: 40px;
     width: 40px;
-    background-size: cover;
+    background-size: contain;
     background-position: bottom;
     border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .IconComp .signInAv:hover{
     cursor: pointer;
@@ -36,6 +42,11 @@ input.me-2.form-control:focus {
     outline: none;
     box-shadow: none;
 }
+/* ____________________________________________________ */
+/* model comf */
+
+
+
 /* -------------------------------------------- */
 /* Home */
 .Content-Home{
@@ -65,6 +76,7 @@ input.me-2.form-control:focus {
     padding: 0.5rem;
     border-radius: 5px;
     padding-left: 0.2 rem;
+    word-wrap: break-word;
 }
 .LeftHomeContent li:hover,.LeftHomeContent .LeftContent_top .ListStyle:hover{
     color: var(--ContenT-main-color);
@@ -141,7 +153,7 @@ transform: translateX(0px);
     right: 0;
     z-index: 3;
     width: 25%;
-    height: 100%;
+    height: 25%;
     border-radius: 3px;
 }
 .TaskComp_Child:hover{
@@ -224,3 +236,318 @@ position: relative;
 .DisplayUser.IconComp i.user_childElement:hover::before{
     content: "\f005";
 }
+/* workSpace */
+.BackPrev{
+    background: rgba(128, 128, 128, 0.152);
+    width: 100%;
+    height: auto;
+    
+}
+.BackPrev i {
+    padding: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 20px
+}
+/* jobcontent */
+.ContentJob_DisplayBackGround{
+background: var(--ContenT-main-color);
+height: calc(100% - 70px);
+width: fit-content;
+min-width: 100%;
+}
+.TaskModul {
+    width: 267px;
+    max-height: calc(100% - 70px);
+    min-height: 100px;
+    margin: 0px 10px;
+}
+.TaskModul.TaskManage {
+
+    margin: 0px 10px 0px 0px;
+}
+.TaskModul.TaskManage .BackGround_Task
+{
+    border-radius: 0px;
+    background-color: #adb5bd;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.BackGround_Task{
+    border-radius: 10px;
+    background: #eeebeb;
+    height: fit-content;
+}
+.head.d-flex {
+    position: relative;
+    max-height: 170px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.option {
+    position: relative;
+}
+
+.option .DropDownList {
+    position: absolute;
+    display: none;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 5px 0px black;
+    border-radius: 3px;
+    width: 200px;
+    z-index: 9999;
+    right: -80px;
+}
+
+/* .ContentJob_DisplayBackGround.d-flex {
+    overflow-x: auto;
+} */
+
+.TitleName .titlename_input {
+    background: none;
+    border: none;
+}
+
+.TitleName .titlename_input:focus {
+    background: white;
+    border: 1px solid blue;
+    outline: none;
+    padding: 0px 10px;
+}
+
+.Icon {
+    cursor: pointer;
+}
+
+.option .DropDownList li {
+    list-style: none;
+    cursor: pointer;
+    /* padding: 20px; */
+}
+
+.option .DropDownList ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+.option .DropDownList li:hover {
+    background: #c6c9ce;
+    width: 100%;
+}
+
+.option .DropDownList div.LabelName {
+    /* justify-content: center; */
+    /* margin: auto; */
+    text-align: center;
+    /* display: flow-root; */
+    position: relative;
+    width: 100%;
+}
+
+.option .Close {
+    right: 8px;
+    /* justify-content: end; */
+    /* display: flex; */
+    position: absolute;
+    top: 7px;
+    cursor: pointer;
+}
+.Card {
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 3px -1px;
+    cursor: pointer;
+    margin: 2px 0px;
+    justify-content: space-between;
+    overflow: hidden;  
+    position: relative;
+    display: flex;
+}
+.Card:hover .Icon.iconCard{
+display: block;
+}
+.Icon.iconCard i {
+    padding: 10px;
+    margin: 1px;
+    /* position: absolute; */
+    border-radius: 7px;
+    /* top: 0; */
+    /* right: 0; */
+}
+.Icon.iconCard i:hover{
+    background:#c6c9ce ;
+}
+.Icon.iconCard {
+    position: absolute;
+    right: 0;
+    top:0;
+    display: none;
+
+}
+.Card:hover {
+    filter: brightness(0.92);
+}
+.addCard {
+    align-items: center;
+    cursor: pointer;
+}
+.Body_ScollBar.d-flex {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 7px;
+    justify-content: space-between;
+    margin: 0 4px;
+    min-height: 0;
+    padding: 1px 4px 0;
+    z-index: 1;
+}
+.App::-webkit-scrollbar{
+    width: 8px;
+    height: 20px !important;
+    background-color: var(--ContenT-main-color);
+}
+.App::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: white;
+}
+.body::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+
+}
+.body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--ContenT-main-color,#091e420f);
+}
+.focusnone:focus{
+    outline: none !important;
+    box-shadow: none !important;  
+}
+.btn-close:focus{
+    outline: none !important;
+    box-shadow: none !important; 
+}
+ .body {
+    max-height: calc(70vh - 6vh - 170px - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family: "Roboto", Tofu;
+
+}
+    .chillHeader {
+        display: flex;
+        align-items: center;
+        padding: 9px 0px;
+    }
+    
+    .chillHeader i {
+        margin-right: 12px;
+    }
+    
+    .ListComment .CommentComp {
+        display: flex;
+        /* grid: inherit; */
+        justify-content: space-between;
+        margin: 10px 0;
+        align-items: start;
+    }
+    .ListComment .AvaPlace {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background-origin: border-box;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: auto;
+        background-size: contain;
+    }
+    
+    .CommentPlace {
+        width: 92%;
+    }
+    .CommentTag {
+        background: #fff;
+        padding: 6px;
+        border-radius: 5px;
+        box-shadow: 1px 1px 3px 0px;
+    }
+    .UserNameCom {
+        margin-bottom: 3px;
+    }
+    .UserNameCom b {
+        margin-right: 8px;
+        font-size: 14px;
+    }
+    
+    .UserNameCom i {
+        font-size: 11px;
+    }
+    .LeftCard{
+        width: 75%;
+    }
+    .RightCard{
+        width: 20%;
+    }
+    .actionChill.Icon {
+        padding: 7px 5px;
+        background: #e9ecef;
+        margin: 6px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .actionChill.Icon i {
+        margin-right: 8px;
+        font-size: larger;
+        margin-left: 8px;
+    }
+    
+    .actionChill.Icon:hover {
+        background: #adb5bd;
+    }
+@media(max-width: 1200px) {
+    .option .DropDownList{
+        right: auto;
+            }
+    .TaskComp_Child{
+        width: 31%;
+    }
+    .LeftHomeContent{
+        width: calc(1400px - 1200px); 
+    }
+    
+  }
+
+  @media(max-width: 769px ) {
+    .TaskComp_Child{
+        width: 48%;
+    }
+    
+    }
+    @media (min-width: 576px)
+{
+    .modal-dialog{
+        max-width: fit-content !important;
+        margin:0.5rem auto !important ;
+    }
+}
+    @media(max-width: 480px) {
+        .option .DropDownList{
+            right: 0;
+                }
+        .TaskComp_Child{
+            width: 100%;
+        }
+        .LeftHomeContent{
+display: none;        }
+        .RightHomeContent{
+margin: auto;
+        }
+        .LeftBar{
+            display: none;
+        }
+      }

@@ -6,11 +6,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './view/Home';
+import JobWorkSpace from './view/JobWorkSpace';
+import 'typeface-roboto'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App></App>
+      <Routes>
+        <Route path='/' element={<App></App>}>
+          <Route path={`/WorkSpace/:id`} element={<JobWorkSpace></JobWorkSpace>}></Route>
+          <Route path={`/ProjectPage/:id`} element={<Home ></Home>}></Route>
+        </Route>
+      </Routes>
     </BrowserRouter>
   </React.StrictMode>
 );

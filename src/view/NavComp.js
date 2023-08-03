@@ -1,13 +1,17 @@
 import { NavDropdown, Navbar, Nav, Form, Container, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import avatar from '../asset/image/avatarSignIn.jpg'
 import { useState } from 'react';
 const NavComp = (props) => {
     const { UserData } = props
+    const hisnavTory = useNavigate()
+    const handelBack = () => {
+        hisnavTory("/ProjectPage/" + UserData.UserId)
+    }
     return (<>
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
-                <Navbar.Brand href="/">ToDo List</Navbar.Brand>
+                <Navbar.Brand style={{ cursor: "pointer" }} onClick={handelBack}>ToDo List</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Link
