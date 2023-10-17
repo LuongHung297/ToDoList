@@ -3,13 +3,17 @@ import { useNavigate, useOutletContext, useParams } from "react-router-dom"
 import DeleteComf from "./DeleteComf"
 import ModelForView from "./Model"
 import TextareaAutosize from 'react-textarea-autosize';
+import { registerLocale, setDefaultLocale, } from "react-datepicker";
+import Moment from "react-moment";
+import 'moment/locale/vi';
 const TaskManage = (props) => {
+
     const [ShowaddCard, setShowaddCard] = useState(false)
     const [Show, setShow] = useState(false)
     // const [ShowCard, setShowCard] = useState(false)
     const ShowCard = useRef(false)
     const [inputData, setinputData] = useState()
-    const { handleShow, taskData, handelDupTask, handelDeleteCard, handelDeleteTask, handleAddNewCard, handleUpdateCardName, handleUpdateTaskName, setref } = props
+    const { LabelListState, cardList, handleShow, taskData, handelDupTask, handelDeleteCard, handelDeleteTask, handleAddNewCard, handleUpdateCardName, handleUpdateTaskName, setref } = props
     const [taskName, settaskName] = useState()
     const [CardUpdate, setCardUpdate] = useState()
     const handleUpdateCardNameIn = (e) => {
@@ -41,14 +45,49 @@ const TaskManage = (props) => {
                 </div>
                 <div className="body mt-2">
                     <div ref={setref} className="Body_ScollBar  d-flex">
-                        {taskData.CardList.length > 0 &&
-                            taskData.CardList.map((item, index) => {
+                        {cardList.length > 0 &&
+                            cardList.map((item, index) => {
                                 return (<>
                                     <div style={{ alignItems: "center" }} key={"card_" + item.cardId} className="Card ">
-                                        <div onClick={() => handleShow(item.cardName)} style={{ width: "90%" }} className="d-flex justify-content-between">
-                                            <span key={"span_" + item.cardId}>
-                                                {item.cardName}
-                                            </span>
+                                        <div onClick={() => handleShow(item)} style={{ width: "90%" }} className=" justify-content-between">
+                                            <div className="labelDis mb-2">
+                                                {
+                                                    LabelListState.filter(x => item.LabelInCard.includes(x.LabelId))?.map(i => {
+                                                        return (<>
+
+                                                            <div
+                                                                style={{ backgroundColor: i.LableCode }}>
+                                                            </div></>)
+                                                    })}
+                                            </div>
+                                            <div>
+                                                <span key={"span_" + item.cardId}>
+                                                    {item.cardName}
+                                                </span>
+                                            </div>
+
+                                            <div className="bottomDis mt-2">
+                                                {item.CheckListId.length > 0 &&
+                                                    <span><i className="fa fa-check-square-o" aria-hidden="true"></i>
+                                                        {item.CheckListId?.length}</span>
+                                                }
+
+                                                <div className={item.Complete ? "bg-success" : "bg-danger"}><i className="fa fa-clock-o" aria-hidden="true"></i>
+                                                    {item.deadLine != null ? <Moment format="DD/MM" locale='vi'>{item.deadLine}</Moment>
+                                                        : ""}
+
+                                                </div>
+                                                {
+                                                    item.MemberInCardId.length > 0 &&
+                                                    <span> <i className="fa fa-users" aria-hidden="true"></i>
+                                                        {item.MemberInCardId?.length}</span>
+                                                }
+                                                {!item.abledelete &&
+                                                    <span><i className="fa fa-lock text-success" aria-hidden="true"></i>
+                                                    </span>
+                                                }
+
+                                            </div>
 
 
                                         </div>
@@ -118,10 +157,9 @@ const TaskNormal = (props) => {
     // const [ShowCard, setShowCard] = useState(false)
     const ShowCard = useRef(false)
     const [inputData, setinputData] = useState()
-    const { handleShow, taskData, handelDupTask, handelDeleteCard, handelDeleteTask, handleAddNewCard, handleUpdateCardName, handleUpdateTaskName, setref } = props
+    const { LabelListState, cardList, handleShow, taskData, handelDupTask, handelDeleteCard, handelDeleteTask, handleAddNewCard, handleUpdateCardName, handleUpdateTaskName, setref } = props
     const [taskName, settaskName] = useState()
     const [CardUpdate, setCardUpdate] = useState()
-
     const handleUpdateCardNameIn = (e) => {
         var arr = document.querySelectorAll('.changeName');
         var arr2 = document.querySelectorAll('.Card');
@@ -180,14 +218,49 @@ const TaskNormal = (props) => {
                 </div>
                 <div className="body mt-2">
                     <div ref={setref} className="Body_ScollBar  d-flex">
-                        {taskData.CardList.length > 0 &&
-                            taskData.CardList.map((item, index) => {
+                        {cardList.length > 0 &&
+                            cardList.map((item, index) => {
                                 return (<>
                                     <div style={{ alignItems: "center" }} key={"card_" + item.cardId} className="Card ">
-                                        <div onClick={() => handleShow(item.cardName)} style={{ width: "90%" }} className="d-flex justify-content-between">
-                                            <span key={"span_" + item.cardId}>
-                                                {item.cardName}
-                                            </span>
+                                        <div onClick={() => handleShow(item)} style={{ width: "90%" }} className=" justify-content-between">
+                                            <div className="labelDis mb-2">
+                                                {
+                                                    LabelListState.filter(x => item.LabelInCard.includes(x.LabelId))?.map(i => {
+                                                        return (<>
+
+                                                            <div
+                                                                style={{ backgroundColor: i.LableCode }}>
+                                                            </div></>)
+                                                    })}
+                                            </div>
+                                            <div>
+                                                <span key={"span_" + item.cardId}>
+                                                    {item.cardName}
+                                                </span>
+                                            </div>
+
+                                            <div className="bottomDis mt-2">
+                                                {item.CheckListId.length > 0 &&
+                                                    <span><i className="fa fa-check-square-o" aria-hidden="true"></i>
+                                                        {item.CheckListId?.length}</span>
+                                                }
+
+                                                <div className={item.Complete ? "bg-success" : "bg-danger"}><i className="fa fa-clock-o" aria-hidden="true"></i>
+                                                    {item.deadLine != null ? <Moment format="DD/MM" locale='vi'>{item.deadLine}</Moment>
+                                                        : ""}
+
+                                                </div>
+                                                {
+                                                    item.MemberInCardId.length > 0 &&
+                                                    <span> <i className="fa fa-users" aria-hidden="true"></i>
+                                                        {item.MemberInCardId?.length}</span>
+                                                }
+                                                {!item.abledelete &&
+                                                    <span><i className="fa fa-lock text-success" aria-hidden="true"></i>
+                                                    </span>
+                                                }
+
+                                            </div>
 
 
                                         </div>
@@ -250,14 +323,16 @@ const TaskNormal = (props) => {
 const JobWorkSpace = (props) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const [CardName, setCardName] = useState()
-    const handleShow = (CardName) => {
-        setCardName(CardName)
+    const [CardData, setCardData] = useState()
+
+    const handleShow = (data) => {
+        setCardData(data)
         setShow(true);
     }
     let context = useOutletContext()
-    const { LoginId, JobinProject, Task, setTask } = context
+    const { LoginId, JobinProject, Task, setTask, Card, SetCard, noti, setnoti, LabelListState } = context
     const { id } = useParams()
+    const JobId = parseInt(id)
     const [ShowAddTask, setShowAddTask] = useState(false)
     const [inputData, setinputData] = useState()
     const scrollBt = useRef();
@@ -265,46 +340,96 @@ const JobWorkSpace = (props) => {
 
     const handleAddNewCard = (data, text) => {
         if (text) {
-            let List = Task.find(x => x.taskId == data.taskId)
             let cardData = {
                 cardId: Math.floor(Math.random() * 100) + 1,
-                cardName: text,
                 taskId: data.taskId,
-                abledelete: true,
-                userCreateId: LoginId,
+                JobId: data.JobId,
+                Describe: "",
+                cardName: text,
+                CheckListId: [],
+                LabelInCard: [],
+                AttachFileId: [],
+                MemberInCardId: [],
+                deadLine: null,
+                Complete: false,
                 createDate: Date.now(),
+                userCreateId: LoginId,
+                abledelete: true
             }
-            List.CardList = [...List.CardList, cardData]
-            setTask([...Task], List)
+            SetCard([...Card, cardData])
+            let notiChill = {
+                notiId: Math.floor(Math.random() * 100) + 1,
+                taskId: cardData.taskId,
+                JobId: cardData.JobId,
+                cardId: cardData.cardId,
+                actionName: "thêm mới card",
+                creatDate: Date.now(),
+                userCreateId: LoginId,
+                checked: false
+            }
+            setnoti([...noti, notiChill])
         }
-
     }
     const handleAddNewTask = () => {
         if (inputData) {
             let TaskData = {
                 taskName: inputData.trim(),
                 taskId: Math.floor(Math.random() * 100) + 1,
-                JobId: id,
+                JobId: JobId,
                 ManageTask: false,
                 createDate: Date.now(),
                 userCreateId: LoginId,
-                CardList: []
             }
             setTask([...Task, TaskData])
+            let notiChill = {
+                notiId: Math.floor(Math.random() * 100) + 1,
+                taskId: TaskData.taskId,
+                JobId: TaskData.JobId,
+                cardId: null,
+                actionName: "thêm mới task",
+                creatDate: Date.now(),
+                userCreateId: LoginId,
+                checked: false
+            }
+            setnoti([...noti, notiChill])
         }
     }
     const handleUpdateTaskName = (data, text) => {
         if (text) {
             let List = Task.find(x => x.taskId == data.taskId)
-            List.taskName = text.trim()
-            setTask([...Task], List)
+            if (List.taskName !== text.trim()) {
+                List.taskName = text.trim()
+                setTask([...Task], List)
+                let notiChill = {
+                    notiId: Math.floor(Math.random() * 100) + 1,
+                    taskId: List.taskId,
+                    JobId: List.JobId,
+                    cardId: null,
+                    actionName: "đổi tên task",
+                    creatDate: Date.now(),
+                    userCreateId: LoginId,
+                    checked: false
+                }
+                setnoti([...noti, notiChill])
+            }
         }
     }
     const handleUpdateCardName = (text, data, cardid) => {
         if (text) {
-            let List = Task.find(x => x.taskId == data.taskId)?.CardList?.find(x => x.cardId == cardid)
+            let List = Card.find(x => x.cardId == cardid && x.taskId == data.taskId && x.JobId == data.JobId)
             List.cardName = text
-            setTask([...Task], List)
+            SetCard([...Card], List)
+            let notiChill = {
+                notiId: Math.floor(Math.random() * 100) + 1,
+                taskId: List.taskId,
+                JobId: List.JobId,
+                cardId: List.cardId,
+                actionName: "đổi tên card",
+                creatDate: Date.now(),
+                userCreateId: LoginId,
+                checked: false
+            }
+            setnoti([...noti, notiChill])
         }
     }
     const handelDupTask = (data) => {
@@ -315,41 +440,80 @@ const JobWorkSpace = (props) => {
         DataChange.userCreateId = LoginId
         DataChange.taskName = data.taskName.trim()
         DataChange.ManageTask = false
-        let listCard = []
-        data.CardList.map((item, index) => {
+        let listCard = [...Card]
+        Card.filter(x => x.taskId == data.taskId && x.JobId == data.JobId).map((item, index) => {
             let cardData = {
                 cardId: Math.floor(Math.random() * 100) + 1,
                 cardName: item.cardName,
                 taskId: DataChange.taskId,
+                JobId: JobId,
+                Describe: "",
+                CheckListId: [],
+                AttachFileId: [],
+                MemberInCardId: [],
+                LabelInCard: [],
+                deadLine: null,
+                Complete: false,
                 userCreateId: LoginId,
                 abledelete: true,
                 createDate: Date.now(),
             }
             listCard.push(cardData)
         })
-        DataChange.CardList = listCard
         setTask([...Task, DataChange])
+        SetCard(listCard)
+        let notiChill = {
+            notiId: Math.floor(Math.random() * 100) + 1,
+            taskId: data.taskId,
+            JobId: data.JobId,
+            cardId: null,
+            actionName: "nhân đôi task",
+            creatDate: Date.now(),
+            userCreateId: LoginId,
+            checked: false
+        }
+        setnoti([...noti, notiChill])
+
     }
     const handelDeleteTask = (id) => {
         let List = [...Task]
         List = List.filter(x => x.taskId != id)
         setTask(List)
+        let notiChill = {
+            notiId: Math.floor(Math.random() * 100) + 1,
+            taskId: null,
+            JobId: JobId,
+            cardId: null,
+            actionName: "xóa task trong công việc",
+            creatDate: Date.now(),
+            userCreateId: LoginId,
+            checked: false
+        }
+        setnoti([...noti, notiChill])
     }
     const handelDeleteCard = (data, cardid) => {
         if (cardid) {
-            let List = Task.find(x => x.taskId == data.taskId)
-            List.CardList = List?.CardList?.filter(x => x.cardId !== cardid)
-            setTask([...Task], List)
+            let List = Card.filter(x => x.cardId !== cardid)
+            SetCard(List)
+            let notiChill = {
+                notiId: Math.floor(Math.random() * 100) + 1,
+                taskId: data.taskId,
+                JobId: data.JobId,
+                cardId: null,
+                actionName: "xóa card trong task",
+                creatDate: Date.now(),
+                userCreateId: LoginId,
+                checked: false
+            }
+            setnoti([...noti, notiChill])
         }
     }
     let CN = {
         codeName: "CT",
-        Project: ""
+        Project: "",
+        CardData: CardData,
+        jobId: JobId
     }
-    // useEffect(() => {
-    //     console.log(Task)
-
-    // })
     return (<>
         <div ref={MainContent} className="ContentJob_DisplayBackGround d-flex">
             {Task &&
@@ -358,9 +522,9 @@ const JobWorkSpace = (props) => {
                 Task.filter(x => x.JobId == id).map((item, index) => {
                     return (
                         item.ManageTask ?
-                            <TaskManage handleShow={handleShow} handelDeleteCard={handelDeleteCard} handelDeleteTask={handelDeleteTask} handelDupTask={handelDupTask} handleAddNewCard={handleAddNewCard} handleUpdateCardName={handleUpdateCardName} handleUpdateTaskName={handleUpdateTaskName} setref={scrollBt} taskData={item}></TaskManage>
+                            <TaskManage LabelListState={LabelListState} handleShow={handleShow} handelDeleteCard={handelDeleteCard} handelDeleteTask={handelDeleteTask} handelDupTask={handelDupTask} handleAddNewCard={handleAddNewCard} handleUpdateCardName={handleUpdateCardName} handleUpdateTaskName={handleUpdateTaskName} setref={scrollBt} cardList={Card.filter(x => x.JobId == item.JobId && x.taskId == item.taskId)} taskData={item}></TaskManage>
                             :
-                            <TaskNormal handleShow={handleShow} handelDeleteCard={handelDeleteCard} handelDeleteTask={handelDeleteTask} handelDupTask={handelDupTask} handleAddNewCard={handleAddNewCard} handleUpdateCardName={handleUpdateCardName} handleUpdateTaskName={handleUpdateTaskName} setref={scrollBt} taskData={item} ></TaskNormal>
+                            <TaskNormal LabelListState={LabelListState} handleShow={handleShow} handelDeleteCard={handelDeleteCard} handelDeleteTask={handelDeleteTask} handelDupTask={handelDupTask} handleAddNewCard={handleAddNewCard} handleUpdateCardName={handleUpdateCardName} handleUpdateTaskName={handleUpdateTaskName} setref={scrollBt} cardList={Card.filter(x => x.JobId == item.JobId && x.taskId == item.taskId)} taskData={item} ></TaskNormal>
                     )
                 })
             }
@@ -391,7 +555,7 @@ const JobWorkSpace = (props) => {
             </div>
 
         </div>
-        <ModelForView handleShow={handleShow} handleClose={handleClose} Title={CardName} CN={CN} show={show} ></ModelForView>
+        <ModelForView handleShow={handleShow} handleClose={handleClose} Title={CardData?.cardName} CN={CN} show={show} ></ModelForView>
     </>)
 }
 export default JobWorkSpace

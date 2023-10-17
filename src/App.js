@@ -11,7 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import JobWorkSpace from "./view/JobWorkSpace";
 
 function App() {
-  const { JobinProject, setJobinProject, setprojectData, setListUser, projectData, ListUser, LoginId } = useDataApi()
+  const { noti, setnoti,
+    fileAttach, setFileAttach, CheckList, setCheckList, Card, SetCard, LabelListState, setLabelListState,
+    projectData, setprojectData, Task, setTask, CommentInCard, setCommentInCard, ListUser, setListUser, JobinProject, setJobinProject, LoginId } = useDataApi()
   const ApiData = useDataApi()
   // UserSignInData, setUserSignInData,
   const UserSignInData = ListUser.find(x => x.UserId == LoginId)

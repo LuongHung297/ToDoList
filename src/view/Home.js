@@ -33,7 +33,7 @@ const Home = (props) => {
     //danh sach job gan tag quan trong
     const FavJobList = ListJobJoin ? ListJobJoin.filter(x => UserSignInData.JobFav.includes(x.id)) : []
     const handelTaskClick = (JobId) => {
-        Nav("/WorkSpace/" + JobId)
+        Nav("/ProjectPage/WorkSpace/" + JobId)
     }
     const handleClose = () => setShow(false);
     const handleShow = (e, project) => {

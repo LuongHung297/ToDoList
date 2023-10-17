@@ -431,10 +431,10 @@ display: block;
     box-shadow: none !important; 
 }
  .body {
-    max-height: calc(70vh - 6vh - 170px - 40px);
-    overflow-y: auto;
+    max-height: calc(100vh - 170px - 40px);
+        overflow-y: auto;
     overflow-x: hidden;
-    font-family: "Roboto", Tofu;
+    /* font-family: "Roboto", Tofu; */
 
 }
     .chillHeader {
@@ -461,7 +461,7 @@ display: block;
         background-origin: border-box;
         background-position: center;
         background-repeat: no-repeat;
-        margin: auto;
+        margin-right: auto;
         background-size: contain;
     }
     
@@ -472,7 +472,7 @@ display: block;
         background: #fff;
         padding: 6px;
         border-radius: 5px;
-        box-shadow: 1px 1px 3px 0px;
+        box-shadow: 0px 1px 1px 0px;
     }
     .UserNameCom {
         margin-bottom: 3px;
@@ -486,10 +486,11 @@ display: block;
         font-size: 11px;
     }
     .LeftCard{
-        width: 75%;
+        min-width: 250px;
+        width: calc(100% - 250px);
     }
     .RightCard{
-        width: 20%;
+        width: 200px;
     }
     .actionChill.Icon {
         padding: 7px 5px;
@@ -498,6 +499,7 @@ display: block;
         border-radius: 6px;
         display: flex;
         align-items: center;
+        position: relative;
     }
     
     .actionChill.Icon i {
@@ -509,6 +511,131 @@ display: block;
     .actionChill.Icon:hover {
         background: #adb5bd;
     }
+    .HidenMember {
+        /* display: none; */
+        position: absolute;
+        background: white;
+        top: 100%;
+        padding: 12px;
+        left: 0;
+        box-shadow: 1px 1px 8px -3px black;
+        z-index: 99;
+        width: max-content;
+        height: max-content;
+        border-radius: 5px;
+    }
+    .ListMemChill {
+        display: flex;
+        /* justify-content: space-around; */
+        align-items: center;
+        background: #e9ecef;
+        border-radius: 4px;
+        padding: 3px;
+        margin-top: 5px;
+    }
+   .isIn{
+    margin-left: auto;
+    color: green;
+   } 
+    .useimg {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-origin: border-box;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-right: 10px;
+        background-size: contain;
+    }
+    .ml-auto{
+        margin-left: auto;
+    }
+    .ListMemChill:hover {
+        background: #adb5bd;
+    }
+    
+    .actionChill.Icon.active {
+        background: #adb5bd;
+    }
+    .ModelHeader {
+        display: flex;
+    }
+    
+    .TitleHead.w-80 {
+        width: 90%;
+        text-align: center;
+    }
+    .membercard {
+        background: #e9ecef;
+        padding: 6px;
+        margin: 2px;
+        border-radius: 4px;
+        cursor: pointer;
+        width: max-content;
+    }
+    .wrapContent{
+flex-wrap: wrap;
+    }
+    .MemberInCard {
+        margin-right: 20px;
+        margin-bottom: 10px;
+    }
+    .membercard:hover {
+        background: #dee2e6;
+    }
+    .ListMemChill_Label {
+        height: 25px;
+        width: 200px;
+        margin: 7px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .ColorDiv {
+        width: 90%;
+        height: 100%;
+        margin-left: auto;
+        border-radius: 3px;
+    }
+    .ColorDiv:hover{
+        filter: brightness(0.8);
+    }
+    .membercard.label {
+        width: 50px;
+        height: 25px;
+    }
+    .headcard{
+        flex-wrap: wrap;
+    }
+    .CheckListProcess.mb-2.d-flex {
+        align-items: center;
+    }
+    
+    .CheckListProcess.mb-2.d-flex span {
+        width: 60px;
+    }
+    .CheckListHeader_0 i {
+        font-size: 25px;
+        width: 50px;
+    }
+    .d-flex.editchil {
+        width: 100%;
+        margin-bottom: 10px;
+        align-items: baseline;
+    }
+    .BodyContent{flex-wrap: wrap;}
+    .editzone {
+        width: 90%;
+        margin-left: auto;
+    }
+    .react-datepicker__input-container{
+        width: 100%;
+    }
+
+    .react-datepicker__input-container input{
+        width: 100%
+    }
+
 @media(max-width: 1200px) {
     .option .DropDownList{
         right: auto;
@@ -521,7 +648,236 @@ display: block;
     }
     
   }
+  li.noti {
+    display: flex;
+    color: darkgrey;
+    align-items: center;
+    padding: 6px;
+    margin: auto;
+    width: 100%;
+}
 
+ul.NotiList {
+    width: 100%;
+}
+
+li.noti:before {
+    content: "-";
+    margin-right: 12px;
+}
+.labelDis {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 100%;
+}
+
+.labelDis div {
+    width: 24%;
+    height: 10px;
+    border-radius: 2px;
+    margin: 1px;
+}
+.bottomDis {
+    display: flex;
+    justify-content: end;
+    width: 110%;
+}
+.bottomDis span {
+    /* width: 15%; */
+    width: 16%;
+    height: auto;
+}
+
+.bottomDis span {
+    text-align: right;
+}
+.bottomDis div {
+    border-radius: 4px;
+    margin-left: 10px;
+    color: white;text-align: center;padding: 0px 10px
+}
+
+.bottomDis div i {
+    margin-right: 8px;
+}
+section 
+{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+section::before 
+{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,var(--ContenT-main-color),#ffff);}
+section span 
+{
+  position: relative;
+  display: block;
+  width: calc(6.25vw - 2px);
+  height: calc(6.25vw - 2px);
+  background: #181818;
+  z-index: 2;
+  transition: 1.5s;
+}
+section span:hover 
+{
+  background: var(--ContenT-main-color);
+  transition: 0s;
+}
+
+section .signin
+{
+  position: absolute;
+  width: 400px;
+  background: #222;  
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(0,0,0,9);
+}
+section .signin .content 
+{
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+}
+section .signin .content h2 
+{
+  font-size: 2em;
+  color: #fff;
+  text-transform: uppercase;
+}
+section .signin .content .form 
+{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+section .signin .content .form .inputBox
+{
+  position: relative;
+  width: 100%;
+}
+section .signin .content .form .inputBox input 
+{
+  position: relative;
+  width: 100%;
+  background: #333;
+  border: none;
+  outline: none;
+  padding: 25px 10px 7.5px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1em;
+}
+section .signin .content .form .inputBox i 
+{
+  position: absolute;
+  left: 0;
+  padding: 15px 10px;
+  font-style: normal;
+  color: #aaa;
+  transition: 0.5s;
+  pointer-events: none;
+}
+.signin .content .form.checked .inputBox.checkWrong::before{
+    content: "✕ Thông tin cần nhập";
+    color: red;
+}
+.signin .content .form.checked .inputBox.SaiMatKhau::before{
+    content: "✕ Mật khẩu nhập không trùng khớp";
+    color: red;
+}
+.signin .content .form.checked .inputBox.DungMk::before{
+    content: "✓ trùng khớp";
+    color: green;
+}
+.signin .content .form.checked .inputBox input.formInput:invalid::before{
+    content: "del";
+    color: red;
+    border: thin solid red;
+    }
+.signin .content .form.checked .inputBox input.formInput:invalid {
+color: red;
+border: thin solid red;
+}
+.signin .content .form.checked .inputBox input.formInput:invalid ~ i {
+    color: red;  
+}
+.signin .content .form .inputBox input:focus ~ i,
+.signin .content .form .inputBox input:valid ~ i
+{
+  transform: translateY(-7.5px);
+  font-size: 0.8em;
+  color: #fff;
+}
+.signin .content .form .links 
+{
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.signin .content .form .links a 
+{
+  color: #fff;
+  text-decoration: none;
+}
+.signin .content .form .links a:nth-child(2)
+{
+  color: var(--ContenT-main-color);
+  font-weight: 600;
+}
+.signin .content .form .inputBox input[type="submit"]
+{
+  padding: 10px;
+  background: var(--ContenT-main-color);
+  color: #000;
+  font-weight: 600;
+  font-size: 1.35em;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+input[type="submit"]:active
+{
+  opacity: 0.6;
+}
+@media (max-width: 900px)
+{
+  section span 
+  {
+    width: calc(10vw - 2px);
+    height: calc(10vw - 2px);
+  }
+}
+@media (max-width: 600px)
+{
+  section span 
+  {
+    width: calc(20vw - 2px);
+    height: calc(20vw - 2px);
+  }
+}
   @media(max-width: 769px ) {
     .TaskComp_Child{
         width: 48%;
